@@ -1,9 +1,12 @@
 import os
+import torch.nn.functional as nnf
+import torch as tor
 
 tasks_file = open(os.path.join(os.path.dirname(__file__), 'tasks.txt'))
 text = tasks_file.read()
 
 ls = [t.split() for t in text.splitlines()]
+DATASET_SIZE = len(ls)
 
 ls_in = [l[1:l.index("OUT:")] for l in ls]
 ls_out = [l[l.index("OUT:")+1:] for l in ls]
@@ -21,6 +24,9 @@ decode_in = reverse_dict(encode_in)
 
 encode_out = {val:idx for idx, val in enumerate(find_unique(ls_out))}
 decode_out = reverse_dict(encode_in)
+
+in_vocab_size = len(encode_in)
+out_vocab_size = len(encode_out)
 
 encode = lambda data, encoder: [[encoder[item] for item in el] for el in data]
 
