@@ -20,10 +20,14 @@ def find_unique(l):
 reverse_dict = lambda dict: {value:key for key, value in dict.items()}
 
 encode_in = {val:idx for idx, val in enumerate(find_unique(ls_in))}
+encode_in['<PAD>'] = len(encode_in)
+encode_in['<EOS>'] = len(encode_in)
 decode_in = reverse_dict(encode_in)
 
 encode_out = {val:idx for idx, val in enumerate(find_unique(ls_out))}
-decode_out = reverse_dict(encode_in)
+encode_out['<PAD>'] = len(encode_out)
+encode_out['<EOS>'] = len(encode_out)
+decode_out = reverse_dict(encode_out)
 
 in_vocab_size = len(encode_in)
 out_vocab_size = len(encode_out)
